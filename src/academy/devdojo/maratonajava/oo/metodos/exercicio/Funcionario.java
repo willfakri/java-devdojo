@@ -1,11 +1,13 @@
 package academy.devdojo.maratonajava.oo.metodos.exercicio;
 
+import lombok.Getter;
+import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Calendar;
-import java.util.Date;
 
+@Getter
+@Setter
 public class Funcionario {
     private String nome;
     private LocalDate dataNascimento;
@@ -15,18 +17,6 @@ public class Funcionario {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.salarios = salarios;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public BigDecimal[] getSalarios() {
-        return salarios;
     }
 
     public int getIdade() {
@@ -54,7 +44,7 @@ public class Funcionario {
         }
         BigDecimal soma = BigDecimal.valueOf(0.0);
         for (BigDecimal salario : this.salarios) {
-            soma.add(salario);
+            soma = soma.add(salario);
         }
         BigDecimal media = soma.divide(BigDecimal.valueOf(this.salarios.length), 2, java.math.RoundingMode.HALF_UP);        System.out.println("Média Salarial: R$" + media);
     }

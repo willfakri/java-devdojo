@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class FuncionarioTest {
 
-        public static void main(String[] args) {
+        static void main() {
 
             Funcionario[] funcionarios = new Funcionario[]{
                     new Funcionario("Peteco Salarios", LocalDate.of(1995, 5, 15), new BigDecimal[]{BigDecimal.valueOf(3000.0), BigDecimal.valueOf(3200.0), BigDecimal.valueOf(3500.0)}),
