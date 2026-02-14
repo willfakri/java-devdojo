@@ -1,14 +1,17 @@
 package academy.devdojo.maratonajava.oo.metodos.exercicio;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Calendar;
 import java.util.Date;
 
 public class Funcionario {
     private String nome;
-    private Date dataNascimento;
-    private double[] salarios;
+    private LocalDate dataNascimento;
+    private BigDecimal[] salarios;
 
-    public Funcionario(String nome, Date dataNascimento, double[] salarios) {
+    public Funcionario(String nome, LocalDate dataNascimento, BigDecimal[] salarios) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.salarios = salarios;
@@ -18,31 +21,17 @@ public class Funcionario {
         return nome;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public double[] getSalarios() {
+    public BigDecimal[] getSalarios() {
         return salarios;
     }
 
     public int getIdade() {
-        if (this.dataNascimento == null) {
-            return 0;
-        }
-        Calendar nascimento = Calendar.getInstance();
-        nascimento.setTime(this.dataNascimento);
-        Calendar hoje = Calendar.getInstance();
-
-        int idade = hoje.get(Calendar.YEAR) - nascimento.get(Calendar.YEAR);
-
-        // Ajusta se ainda não fez aniversário este ano
-        if (hoje.get(Calendar.MONTH) < nascimento.get(Calendar.MONTH)
-                || (hoje.get(Calendar.MONTH) == nascimento.get(Calendar.MONTH)
-                && hoje.get(Calendar.DAY_OF_MONTH) < nascimento.get(Calendar.DAY_OF_MONTH))) {
-            idade--;
-        }
-        return idade;
+        if (this.dataNascimento == null) return 0;
+        return Period.between(this.dataNascimento, LocalDate.now()).getYears();
     }
 
     public void imprimirInformacoes() {
@@ -63,11 +52,10 @@ public class Funcionario {
             System.out.println("Nenhum salário registrado.");
             return;
         }
-        double soma = 0;
-        for (double salario : this.salarios) {
-            soma += salario;
+        BigDecimal soma = BigDecimal.valueOf(0.0);
+        for (BigDecimal salario : this.salarios) {
+            soma.add(salario);
         }
-        double media = soma / this.salarios.length;
-        System.out.println("Média Salarial: R$" + media);
+        BigDecimal media = soma.divide(BigDecimal.valueOf(this.salarios.length), 2, java.math.RoundingMode.HALF_UP);        System.out.println("Média Salarial: R$" + media);
     }
 }
